@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff4e8">
+<title>С днём рождения! 💗</title>
+<style>
+  :root {
+    --ink: #493b48;
+    --pink: #e99bb0;
+    --deep-pink: #b94f76;
+    --cream: #fff8ef;
+    --gold: #f2c76d;
+    --green: #9cb99b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; padding: 22px 14px;
+    display: grid; place-items: center;
+    background: radial-gradient(circle at top, #fffdf8, #f7e4e2 70%, #e8d7e6);
+    color: var(--ink); font-family: ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+  }
+  .app { width: min(100%, 620px); }
+  .topline { text-align: center; color: #876b7d; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+  .card {
+    overflow: hidden; border: 1px solid rgba(255,255,255,.9); border-radius: 28px;
+    background: rgba(255,250,245,.92); box-shadow: 0 18px 60px rgba(93,58,80,.16);
+  }
+  .scene {
+    min-height: 320px; position: relative; overflow: hidden; display: flex;
+    align-items: end; justify-content: center; padding: 22px 12px 0;
+    background: linear-gradient(#e4d9ed 0%, #f7dfe0 68%, #d4b6a1 68%, #c7a18f 100%);
+    transition: background .8s ease;
+  }
+  .scene.lit { background: linear-gradient(#b9c7e6 0%, #f9d9c9 68%, #d7b99f 68%, #b68e78 100%); }
+  .scene.decorated::before {
+    content: "✦  ·  ✧  ·  ✦  ·  ✧  ·  ✦"; position: absolute; top: 18px; left: 0; right: 0;
+    text-align: center; color: #fff7d7; font-size: 1.25rem; letter-spacing: .25em;
+  }
+  .window {
+    position: absolute; top: 32px; left: 8%; width: 82px; height: 105px;
+    border: 7px solid #fff0db; border-radius: 10px; background: linear-gradient(#a8c4e6,#f4d4d1);
+    box-shadow: inset 0 0 0 2px #d8a7a0;
+  }
+  .window:before, .window:after { content:""; position:absolute; background:#fff0db; }
+  .window:before { width:5px; top:0; bottom:0; left:50%; }
+  .window:after { height:5px; left:0; right:0; top:50%; }
+  .lamp { position:absolute; top:24px; right:12%; font-size:3.3rem; filter: drop-shadow(0 4px 5px #9a6d5744); }
+  .floor-rug { position:absolute; bottom:0; height:44px; width:78%; border-radius:50% 50% 0 0; background:#d7a9ae; opacity:.65; }
+  .sofa { position:relative; z-index:1; width:68%; height:95px; margin-bottom:12px; border-radius:22px 22px 8px 8px; background:#c87991; border:5px solid #b96882; box-shadow:inset 0 -10px #b96882; }
+  .sofa:before { content:""; position:absolute; left:-12px; right:-12px; bottom:0; height:25px; border-radius:7px; background:#b96882; }
+  .pillow { position:absolute; bottom:18px; width:52px; height:44px; border-radius:12px; background:#ffe4bd; }
+  .pillow.one { left:15px; transform:rotate(-7deg); }
+  .pillow.two { right:15px; background:#d8d6ef; transform:rotate(7deg); }
+  .character {
+    position:absolute; z-index:3; bottom:68px; font-size:clamp(3.1rem, 10vw, 4.4rem);
+    filter: drop-shadow(0 4px 2px #6c435022); animation: pop .45s cubic-bezier(.2,1.4,.4,1) both;
+  }
+  #nadya { left:13%; }
+  #cat { right:13%; }
+  #cake { position:absolute; z-index:4; bottom:54px; font-size:4rem; animation: pop .5s ease both; }
+  .balloon { position:absolute; top:55px; font-size:2.5rem; animation: float 3s ease-in-out infinite; }
+  .b1 { left:28%; } .b2 { right:27%; animation-delay:.5s; }
+  .confetti { position:absolute; inset:0; pointer-events:none; font-size:1.2rem; }
+  .confetti span { position:absolute; animation: fall 3s linear infinite; }
+  .confetti span:nth-child(1){left:12%;top:-15px}.confetti span:nth-child(2){left:34%;top:-35px;animation-delay:.7s}
+  .confetti span:nth-child(3){left:60%;top:-20px;animation-delay:1.2s}.confetti span:nth-child(4){left:83%;top:-30px;animation-delay:1.8s}
+  .scene.dark { background:linear-gradient(#39374f 0%,#66536f 68%,#6e4e50 68%,#543d49 100%); }
+  .scene.dark .window { background:linear-gradient(#555c87,#b17e9b); }
+  .scene.dark .lamp { filter: grayscale(1); opacity:.45; }
+  .scene.dark .sofa { background:#76506b; border-color:#66435d; box-shadow:inset 0 -10px #66435d; }
+  .scene.dark .sofa:before { background:#66435d; }
+  .scene.dark .floor-rug { background:#9a6c88; }
+  .scene.dark:after { content:""; position:absolute; inset:0; background:radial-gradient(circle at 80% 30%,#fff3b522,transparent 40%); pointer-events:none; }
+  .copy { padding: 22px 22px 24px; text-align:center; }
+  .step { color:var(--deep-pink); font-size:.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.12em; }
+  h1 { font-size:clamp(1.5rem, 5vw, 2.15rem); margin:9px 0 10px; line-height:1.16; }
+  p { margin:0 auto; max-width:420px; line-height:1.55; color:#786776; }
+  .actions { margin-top:20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  button {
+    border:0; border-radius:999px; padding:13px 20px; min-height:48px;
+    background:var(--deep-pink); color:white; font:inherit; font-weight:750; cursor:pointer;
+    box-shadow:0 5px 0 #8e3b5a; transition:transform .15s, box-shadow .15s;
+  }
+  button:hover { transform:translateY(-2px); box-shadow:0 7px 0 #8e3b5a; }
+  button:active { transform:translateY(3px); box-shadow:0 2px 0 #8e3b5a; }
+  button.secondary { color:#88536a; background:#f7e2e8; box-shadow:0 5px 0 #e6c5d0; }
+  button.secondary:hover { box-shadow:0 7px 0 #e6c5d0; }
+  .progress { display:flex; justify-content:center; gap:6px; padding:0 0 18px; }
+  .dot { width:7px;height:7px;border-radius:50%;background:#e4cbd5; }
+  .dot.active { width:20px;border-radius:10px;background:var(--deep-pink); }
+  .letter { text-align:left; background:#fff9ef; border:1px solid #f0dfce; border-radius:18px; padding:18px; margin-top:16px; white-space:pre-line; }
+  .small { font-size:.8rem; color:#987f91; margin-top:12px; }
+  .hidden { display:none !important; }
+  @keyframes pop { from { opacity:0; transform:translateY(18px) scale(.75) } to { opacity:1; transform:translateY(0) scale(1) } }
+  @keyframes float { 0%,100% { transform:translateY(0) rotate(-4deg) } 50% { transform:translateY(-10px) rotate(4deg) } }
+  @keyframes fall { to { transform:translateY(390px) rotate(260deg); opacity:0 } }
+  @media (max-width:420px) { .scene{min-height:285px}.window{width:68px;height:88px}.copy{padding:20px 16px 22px}.sofa{width:75%} }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+</style>
+</head>
+<body>
+<main class="app">
+  <section class="card">
+    <div id="scene" class="scene dark">
+      <div class="window"></div>
+      <div class="lamp" id="lamp">💡</div>
+      <div class="floor-rug"></div>
+      <div class="sofa"><span class="pillow one"></span><span class="pillow two"></span></div>
+      <div id="decorations"></div>
+      <div id="nadya" class="character hidden" aria-label="Надя">👩🏻‍🦰</div>
+      <div id="cat" class="character hidden" aria-label="Анфиса">🐈‍⬛</div>
+      <div id="cake" class="hidden" aria-label="Торт">🎂</div>
+      <div id="confetti" class="confetti hidden"><span>💗</span><span>✨</span><span>🌸</span><span>💛</span></div>
+    </div>
+    <div class="copy">
+      <div class="step" id="step">1 из 7</div>
+      <h1 id="title">Тс-с-с… Готовим сюрприз!</h1>
+      <p id="description">Кажется, сегодня особенный день. Давай всё подготовим?</p>
+      <div id="letter" class="letter hidden"></div>
+      <div class="actions">
+        <button id="next">Включить свет 💡</button>
+        <button id="restart" class="secondary hidden">Начать сначала ↻</button>
+      </div>
+    </div>
+    <div class="progress" id="progress" aria-label="Прогресс"></div>
+  </section>
+</main>
+<script>
+const steps = [
+  { title:"Тс-с-с… Готовим сюрприз!", desc:"Кажется, сегодня особенный день. Давай всё подготовим?", button:"Включить свет 💡" },
+  { title:"Вот теперь уютно!", desc:"Но чего-то не хватает…", button:"Украсить комнату 🎈" },
+  { title:"Надя, иди сюда!", desc:"Надо собрать гостей!", button:"Позвать Надю 🥰" },
+  { title:"Анфиса, ты тоже приглашена!", desc:"Скорее сюда!", button:"Позвать Анфису 🐈" },
+  { title:"А вот и торт!", desc:"Все на местах. Можно загадывать желание!", button:"Достать торт 🎂" },
+  { title:"Самый важный момент…", desc:"Закрой глаза, загадай что-нибудь хорошее и задуй свечи!", button:"Задуть свечи ✨" },
+  { title:"С днём рождения, мамочка! 💗", desc:"Я очень хочу, чтобы ты почувствовала, как сильно мы тебя любим — даже если сегодня мы с Анфиской не рядом.", button:"Прочитать письмо 💌" },
+  { title:"Это всё тебе ❤️", desc:"Обнимаю тебя крепко-крепко!", button:"Открыть ещё один сюрприз 🎁" }
+];
+let current = 0;
+const $ = id => document.getElementById(id);
+const scene = $("scene");
+function renderProgress() {
+  $("progress").innerHTML = steps.slice(0,7).map((_,i)=>`<span class="dot ${i<=Math.min(current,6)?"active":""}"></span>`).join("");
+}
+function setText(title, desc, button, stepText) {
+  $("title").textContent = title;
+  $("description").textContent = desc;
+  $("next").textContent = button;
+  $("step").textContent = stepText;
+}
+function advance() {
+  current++;
+  $("letter").classList.add("hidden");
+  $("restart").classList.add("hidden");
+  $("next").classList.remove("hidden");
+  $("confetti").classList.add("hidden");
+  if (current === 1) {
+    scene.classList.remove("dark"); scene.classList.add("lit");
+    $("lamp").textContent = "✨";
+    setText("Вот теперь уютно!", "Но чего-то не хватает…", steps[1].button, "2 из 7");
+  } else if (current === 2) {
+    $("decorations").innerHTML = '<div class="balloon b1">🎈</div><div class="balloon b2">🎈</div><div class="confetti"><span>✦</span><span>🌸</span><span>✧</span><span>💗</span></div>';
+    scene.classList.add("decorated");
+    setText("Надя, иди сюда!", "Надо собрать гостей!", steps[2].button, "3 из 7");
+  } else if (current === 3) {
+    $("nadya").classList.remove("hidden");
+    setText("Анфиса, ты тоже приглашена!", "Скорее сюда!", steps[3].button, "4 из 7");
+  } else if (current === 4) {
+    $("cat").classList.remove("hidden");
+    setText("А вот и торт!", "Все на местах. Можно загадывать желание!", steps[4].button, "5 из 7");
+  } else if (current === 5) {
+    $("cake").classList.remove("hidden");
+    setText("Самый важный момент…", "Закрой глаза, загадай что-нибудь хорошее и задуй свечи!", steps[5].button, "6 из 7");
+  } else if (current === 6) {
+    $("cake").textContent = "🍰";
+    $("confetti").classList.remove("hidden");
+    setText("С днём рождения, мамочка! 💗", "Я очень хочу, чтобы ты почувствовала, как сильно мы тебя любим — даже если сегодня мы с Анфиской не рядом.", steps[6].button, "7 из 7");
+  } else if (current === 7) {
+    $("letter").textContent = "Мамочка, с днём рождения!\n\nСпасибо тебе за твою заботу, за тепло и за всё, что тыделаешь. Ты самый дорогой человек для меня и я очень рада что я твоя дочь.\n\nЯ желаю тебе побольше спокойных, радостных дней, приятных сюрпризов, сил на всё, чего тебе хочется, и поводов улыбаться просто так.\n\nОчень тебя люблю! ❤️\n\nP. S. Кажется, у меня для тебя есть ещё кое-что…";
+    $("letter").classList.remove("hidden");
+    setText("Письмо для тебя 💌", "Это маленькая открытка, но вся моя любовь в ней настоящая.", "Узнать про подарок 🎁", "самое главное");
+  } else {
+    $("letter").textContent = "А ещё я отправила тебе денежный подарок — выбери себе что-нибудь маленькое и приятное. Встретимся в Люблине, основной подарок будет там! ❤️";
+    $("letter").classList.remove("hidden");
+    $("next").classList.add("hidden");
+    $("restart").classList.remove("hidden");
+    setText("Подарок для тебя 🎁", "Пусть у тебя будет что-то приятное просто потому, что сегодня твой день.", "", "обнимаю на расстоянии");
+  }
+  renderProgress();
+}
+$("next").addEventListener("click", advance);
+$("restart").addEventListener("click", () => location.reload());
+renderProgress();
+</script>
+</body>
+</html>
